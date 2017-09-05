@@ -36,5 +36,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Svg2Xaml")]
 [assembly: AssemblyCopyright("Copyright (C) 2009-2011 Boris Richter")]
 [assembly: Guid("52a36e87-0e39-4878-86bc-1bfe9e648e7c")]
-[assembly: AssemblyVersion("0.3.0.2")]
+[assembly: AssemblyVersion("0.3.0.6")]
 
