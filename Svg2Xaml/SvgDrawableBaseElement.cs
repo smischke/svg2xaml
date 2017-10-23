@@ -402,7 +402,7 @@ namespace Svg2Xaml
         var i = 0;
         foreach (var svgLength in this.StrokeDasharray)
         {
-          sda[i++] = svgLength.Value;
+          sda[i++] = svgLength.Value / StrokeWidth.ToDouble();
         }
 
         var sdo = this.StrokeDashoffset != null ? this.StrokeDashoffset.Value : 0.0;
