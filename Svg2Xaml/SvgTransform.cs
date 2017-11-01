@@ -106,10 +106,6 @@ namespace Svg2Xaml
 
         if(transform.StartsWith("skew"))
         {
-          transform = transform.Substring(5).TrimStart();
-          if(transform.StartsWith("("))
-          {
-            transform = transform.Substring(1);
             int index = transform.IndexOf(")");
             if(index >= 0)
             {
@@ -117,7 +113,6 @@ namespace Svg2Xaml
               transform = transform.Substring(index + 1).TrimStart();
               continue;
             }
-          }
         }
 
         if(transform.StartsWith("rotate"))
