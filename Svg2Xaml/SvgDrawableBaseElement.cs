@@ -407,8 +407,21 @@ namespace Svg2Xaml
 
         var sdo = this.StrokeDashoffset != null ? this.StrokeDashoffset.Value : 0.0;
         pen.DashStyle = new DashStyle(sda, sdo);
+        switch(StrokeLinecap)
+        {
+          case SvgStrokeLinecap.Round:
+            pen.DashCap = PenLineCap.Round;
+            break;
+          case SvgStrokeLinecap.Square:
+            pen.DashCap = PenLineCap.Square;
+            break;
+          case SvgStrokeLinecap.Butt:
+          case SvgStrokeLinecap.Inherit:
+          default:
+            pen.DashCap = PenLineCap.Flat;
+            break;
+        }
       }
-
       return pen;
     }
 
