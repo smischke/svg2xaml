@@ -3,6 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <PackageId>Quick.Svg2Xaml</PackageId>
+    <Version>1.0.2020.518</Version>
+    <PackageProjectUrl>https://github.com/aaasoft/svg2xaml</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/aaasoft/svg2xaml</RepositoryUrl>
+    <Authors>aaasoft</Authors>
+    <Company />
   </PropertyGroup>
 
 </Project>
