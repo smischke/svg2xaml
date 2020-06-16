@@ -60,11 +60,11 @@ namespace Svg2Xaml
     public static new SvgTranslateTransform Parse(string transform)
     {
       string[] tokens = transform.Split(new char[] { ' ', '\t', ',' }, StringSplitOptions.RemoveEmptyEntries);
-      if(tokens.Length != 2)
-        throw new FormatException("A translate transformation must have two values");
+      if(tokens.Length != 1 && tokens.Length != 2)
+        throw new FormatException("A translate transformation must have one or two values");
 
       return new SvgTranslateTransform(Double.Parse(tokens[0].Trim(), CultureInfo.InvariantCulture.NumberFormat),
-                                       Double.Parse(tokens[1].Trim(), CultureInfo.InvariantCulture.NumberFormat));
+                                       Double.Parse(tokens.Length==1? tokens[0].Trim(): tokens[1].Trim(), CultureInfo.InvariantCulture.NumberFormat));
     }
 
   } // class SvgTranslateTransform

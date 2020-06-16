@@ -402,13 +402,26 @@ namespace Svg2Xaml
         var i = 0;
         foreach (var svgLength in this.StrokeDasharray)
         {
-          sda[i++] = svgLength.Value;
+          sda[i++] = svgLength.Value / StrokeWidth.ToDouble();
         }
 
         var sdo = this.StrokeDashoffset != null ? this.StrokeDashoffset.Value : 0.0;
         pen.DashStyle = new DashStyle(sda, sdo);
+        switch(StrokeLinecap)
+        {
+          case SvgStrokeLinecap.Round:
+            pen.DashCap = PenLineCap.Round;
+            break;
+          case SvgStrokeLinecap.Square:
+            pen.DashCap = PenLineCap.Square;
+            break;
+          case SvgStrokeLinecap.Butt:
+          case SvgStrokeLinecap.Inherit:
+          default:
+            pen.DashCap = PenLineCap.Flat;
+            break;
+        }
       }
-
       return pen;
     }
 
