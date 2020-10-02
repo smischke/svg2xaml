@@ -55,87 +55,38 @@ namespace Svg2Xaml
       string transform = value;
       while(transform.Length > 0)
       {
+                
+                int transformIndex = transform.IndexOf("(");
+                string function = transform.Substring(0, transformIndex).Trim();
+                transform = transform.Substring(transformIndex);
 
-        if(transform.StartsWith("translate"))
-        {
-          transform = transform.Substring(9).TrimStart();
-          if(transform.StartsWith("("))
-          {
-            transform = transform.Substring(1);
-            int index = transform.IndexOf(")");
-            if(index >= 0)
-            {
-              transforms.Add(SvgTranslateTransform.Parse(transform.Substring(0, index).Trim()));
-              transform = transform.Substring(index + 1).TrimStart();
-              continue;
-            }
-          }
-        }
-          
-        if(transform.StartsWith("matrix"))
-        {
-          transform = transform.Substring(6).TrimStart();
-          if(transform.StartsWith("("))
-          {
-            transform = transform.Substring(1);
-            int index = transform.IndexOf(")");
-            if(index >= 0)
-            {
-              transforms.Add(SvgMatrixTransform.Parse(transform.Substring(0, index).Trim()));
-              transform = transform.Substring(index + 1).TrimStart();
-              continue;
-            }
-          }
-        }
+                int paramIndex = transform.IndexOf(")");
+                string param = transform.Substring(1, paramIndex - 1);
 
-        if(transform.StartsWith("scale"))
-        {
-          transform = transform.Substring(5).TrimStart();
-          if(transform.StartsWith("("))
-          {
-            transform = transform.Substring(1);
-            int index = transform.IndexOf(")");
-            if(index >= 0)
-            {
-              transforms.Add(SvgScaleTransform.Parse(transform.Substring(0, index).Trim()));
-              transform = transform.Substring(index + 1).TrimStart();
-              continue;
-            }
-          }
-        }
+                transform = transform.Substring(paramIndex + 1).TrimStart();
+                transform = transform.TrimStart(',');
 
-        if(transform.StartsWith("skew"))
-        {
-          transform = transform.Substring(5).TrimStart();
-          if(transform.StartsWith("("))
-          {
-            transform = transform.Substring(1);
-            int index = transform.IndexOf(")");
-            if(index >= 0)
-            {
-              transforms.Add(SvgSkewTransform.Parse(transform.Substring(0, index).Trim()));
-              transform = transform.Substring(index + 1).TrimStart();
-              continue;
-            }
-          }
-        }
-
-        if(transform.StartsWith("rotate"))
-        {
-          transform = transform.Substring(6).TrimStart();
-          if(transform.StartsWith("("))
-          {
-            transform = transform.Substring(1);
-            int index = transform.IndexOf(")");
-            if(index >= 0)
-            {
-              transforms.Add(SvgRotateTransform.Parse(transform.Substring(0, index).Trim()));
-              transform = transform.Substring(index + 1).TrimStart();
-              continue;
-            }
-          }
-        }
-
+                switch (function)
+                {
+                    case "translate":
+                        transforms.Add(SvgTranslateTransform.Parse(param));
+                        break;
+                    case "matrix":
+                        transforms.Add(SvgMatrixTransform.Parse(param));
+                        break;
+                    case "scale":
+                        transforms.Add(SvgScaleTransform.Parse(param));
+                        break;
+                    case "skewX":
+                    case "skewY":
+                        transforms.Add(SvgSkewTransform.Parse(param));
+                        break;
+                    case "rotate":
+                        transforms.Add(SvgRotateTransform.Parse(param));
+                        break;
+                    default:
+                        throw new ArgumentException(String.Format("Unsupported transform value: {0}", value));
+                }
       }
 
       if(transforms.Count == 1)
