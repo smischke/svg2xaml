@@ -74,7 +74,7 @@ namespace Svg2Xaml
       PathFigure path_figure = new PathFigure();
 
       path_figure.StartPoint = Points[0].ToPoint();
-      path_figure.IsClosed = true;
+      path_figure.IsClosed = false;
       path_figure.IsFilled = false;
 
       for(int i = 1; i < Points.Count; ++i)
